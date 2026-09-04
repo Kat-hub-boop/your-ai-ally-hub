@@ -184,11 +184,11 @@ function ResearchDetail() {
         research_project_id: id,
         source_id: source.id,
         style,
-        in_text: c.inText,
+        in_text: c.in_text,
         reference: c.reference,
       });
       if (error) throw error;
-      await navigator.clipboard.writeText(`${c.inText}\n\n${c.reference}`);
+      await navigator.clipboard.writeText(`${c.in_text}\n\n${c.reference}`);
     },
     onSuccess: () => toast.success("Citation saved and copied."),
     onError: (e: Error) => toast.error(e.message),
