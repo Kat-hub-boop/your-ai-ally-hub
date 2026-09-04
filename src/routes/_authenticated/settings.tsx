@@ -69,15 +69,15 @@ function SettingsPage() {
       const { error } = await supabase
         .from("profiles")
         .update({
-          full_name: String(form.full_name ?? ""),
-          work_start: String(form.work_start ?? "09:00"),
-          work_end: String(form.work_end ?? "17:00"),
-          break_minutes: Number(form.break_minutes ?? 15),
-          notify_deadlines: Boolean(form.notify_deadlines),
-          notify_overdue: Boolean(form.notify_overdue),
-          notify_meeting_followups: Boolean(form.notify_meeting_followups),
-          notify_daily_planning: Boolean(form.notify_daily_planning),
-          notify_weekly_planning: Boolean(form.notify_weekly_planning),
+          full_name: String(form["full_name"] ?? ""),
+          work_start: String(form["work_start"] ?? "09:00"),
+          work_end: String(form["work_end"] ?? "17:00"),
+          break_minutes: Number(form["break_minutes"] ?? 15),
+          notify_deadlines: Boolean(form["notify_deadlines"]),
+          notify_overdue: Boolean(form["notify_overdue"]),
+          notify_meeting_followups: Boolean(form["notify_meeting_followups"]),
+          notify_daily_planning: Boolean(form["notify_daily_planning"]),
+          notify_weekly_planning: Boolean(form["notify_weekly_planning"]),
         })
         .eq("id", auth.user!.id);
       if (error) throw error;
@@ -113,11 +113,11 @@ function SettingsPage() {
           <CardContent className="grid gap-3 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <Label htmlFor="fn">Full name</Label>
-              <Input id="fn" value={String(form.full_name ?? "")} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
+              <Input id="fn" value={String(form["full_name"] ?? "")} onChange={(e) => setForm({ ...form, full_name: e.target.value })} />
             </div>
-            <div><Label htmlFor="ws">Work starts</Label><Input id="ws" type="time" value={String(form.work_start ?? "09:00").slice(0, 5)} onChange={(e) => setForm({ ...form, work_start: e.target.value })} /></div>
-            <div><Label htmlFor="we">Work ends</Label><Input id="we" type="time" value={String(form.work_end ?? "17:00").slice(0, 5)} onChange={(e) => setForm({ ...form, work_end: e.target.value })} /></div>
-            <div><Label htmlFor="bm">Break length (minutes)</Label><Input id="bm" type="number" min={0} value={String(form.break_minutes ?? 15)} onChange={(e) => setForm({ ...form, break_minutes: Number(e.target.value) })} /></div>
+            <div><Label htmlFor="ws">Work starts</Label><Input id="ws" type="time" value={String(form["work_start"] ?? "09:00").slice(0, 5)} onChange={(e) => setForm({ ...form, work_start: e.target.value })} /></div>
+            <div><Label htmlFor="we">Work ends</Label><Input id="we" type="time" value={String(form["work_end"] ?? "17:00").slice(0, 5)} onChange={(e) => setForm({ ...form, work_end: e.target.value })} /></div>
+            <div><Label htmlFor="bm">Break length (minutes)</Label><Input id="bm" type="number" min={0} value={String(form["break_minutes"] ?? 15)} onChange={(e) => setForm({ ...form, break_minutes: Number(e.target.value) })} /></div>
           </CardContent>
         </Card>
 

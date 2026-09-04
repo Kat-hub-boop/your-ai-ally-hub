@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedNotesRouteImport } from './routes/_authenticated/notes'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedMeetingsIndexRouteImport } from './routes/_authenticated/meetings.index'
 import { Route as AuthenticatedMeetingsIdRouteImport } from './routes/_authenticated/meetings.$id'
@@ -68,6 +69,11 @@ const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/notes': typeof AuthenticatedNotesRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/projects': typeof AuthenticatedProjectsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/meetings/$id': typeof AuthenticatedMeetingsIdRoute
   '/research/$id': typeof AuthenticatedResearchIdRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/notes': typeof AuthenticatedNotesRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/projects': typeof AuthenticatedProjectsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/meetings/$id': typeof AuthenticatedMeetingsIdRoute
   '/research/$id': typeof AuthenticatedResearchIdRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/_authenticated/notes': typeof AuthenticatedNotesRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/meetings/$id': typeof AuthenticatedMeetingsIdRoute
   '/_authenticated/research/$id': typeof AuthenticatedResearchIdRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/planner'
     | '/projects'
+    | '/settings'
     | '/tasks'
     | '/meetings/$id'
     | '/research/$id'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/planner'
     | '/projects'
+    | '/settings'
     | '/tasks'
     | '/meetings/$id'
     | '/research/$id'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/_authenticated/notes'
     | '/_authenticated/planner'
     | '/_authenticated/projects'
+    | '/_authenticated/settings'
     | '/_authenticated/tasks'
     | '/_authenticated/meetings/$id'
     | '/_authenticated/research/$id'
@@ -263,6 +275,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProjectsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tasks': {
       id: '/_authenticated/tasks'
       path: '/tasks'
@@ -308,6 +327,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedNotesRoute: typeof AuthenticatedNotesRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedMeetingsIdRoute: typeof AuthenticatedMeetingsIdRoute
   AuthenticatedResearchIdRoute: typeof AuthenticatedResearchIdRoute
@@ -322,6 +342,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedNotesRoute: AuthenticatedNotesRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedMeetingsIdRoute: AuthenticatedMeetingsIdRoute,
   AuthenticatedResearchIdRoute: AuthenticatedResearchIdRoute,
