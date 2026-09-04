@@ -12,10 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedNotesRouteImport } from './routes/_authenticated/notes'
+import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
+import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedMeetingsIndexRouteImport } from './routes/_authenticated/meetings.index'
 import { Route as AuthenticatedMeetingsIdRouteImport } from './routes/_authenticated/meetings.$id'
+import { Route as AuthenticatedResearchIndexRouteImport } from './routes/_authenticated/research.index'
+import { Route as AuthenticatedResearchIdRouteImport } from './routes/_authenticated/research.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,6 +39,16 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -39,6 +57,26 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 const AuthenticatedNotesRoute = AuthenticatedNotesRouteImport.update({
   id: '/notes',
   path: '/notes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedMeetingsIndexRoute =
@@ -52,48 +90,118 @@ const AuthenticatedMeetingsIdRoute = AuthenticatedMeetingsIdRouteImport.update({
   path: '/meetings/$id',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedResearchIndexRoute =
+  AuthenticatedResearchIndexRouteImport.update({
+    id: '/research/',
+    path: '/research/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedResearchIdRoute = AuthenticatedResearchIdRouteImport.update({
+  id: '/research/$id',
+  path: '/research/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/notes': typeof AuthenticatedNotesRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/tasks': typeof AuthenticatedTasksRoute
   '/meetings/$id': typeof AuthenticatedMeetingsIdRoute
+  '/research/$id': typeof AuthenticatedResearchIdRoute
   '/meetings/': typeof AuthenticatedMeetingsIndexRoute
+  '/research/': typeof AuthenticatedResearchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/notes': typeof AuthenticatedNotesRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/tasks': typeof AuthenticatedTasksRoute
   '/meetings/$id': typeof AuthenticatedMeetingsIdRoute
+  '/research/$id': typeof AuthenticatedResearchIdRoute
   '/meetings': typeof AuthenticatedMeetingsIndexRoute
+  '/research': typeof AuthenticatedResearchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
+  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/notes': typeof AuthenticatedNotesRoute
+  '/_authenticated/planner': typeof AuthenticatedPlannerRoute
+  '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/meetings/$id': typeof AuthenticatedMeetingsIdRoute
+  '/_authenticated/research/$id': typeof AuthenticatedResearchIdRoute
   '/_authenticated/meetings/': typeof AuthenticatedMeetingsIndexRoute
+  '/_authenticated/research/': typeof AuthenticatedResearchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/dashboard' | '/notes' | '/meetings/$id' | '/meetings/'
+    | '/'
+    | '/auth'
+    | '/analytics'
+    | '/calendar'
+    | '/dashboard'
+    | '/notes'
+    | '/planner'
+    | '/projects'
+    | '/settings'
+    | '/tasks'
+    | '/meetings/$id'
+    | '/research/$id'
+    | '/meetings/'
+    | '/research/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/notes' | '/meetings/$id' | '/meetings'
+  to:
+    | '/'
+    | '/auth'
+    | '/analytics'
+    | '/calendar'
+    | '/dashboard'
+    | '/notes'
+    | '/planner'
+    | '/projects'
+    | '/settings'
+    | '/tasks'
+    | '/meetings/$id'
+    | '/research/$id'
+    | '/meetings'
+    | '/research'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/analytics'
+    | '/_authenticated/calendar'
     | '/_authenticated/dashboard'
     | '/_authenticated/notes'
+    | '/_authenticated/planner'
+    | '/_authenticated/projects'
+    | '/_authenticated/settings'
+    | '/_authenticated/tasks'
     | '/_authenticated/meetings/$id'
+    | '/_authenticated/research/$id'
     | '/_authenticated/meetings/'
+    | '/_authenticated/research/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -125,6 +233,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -137,6 +259,34 @@ declare module '@tanstack/react-router' {
       path: '/notes'
       fullPath: '/notes'
       preLoaderRoute: typeof AuthenticatedNotesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/planner': {
+      id: '/_authenticated/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof AuthenticatedPlannerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/projects': {
+      id: '/_authenticated/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AuthenticatedProjectsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/meetings/': {
@@ -153,21 +303,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMeetingsIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/research/': {
+      id: '/_authenticated/research/'
+      path: '/research'
+      fullPath: '/research/'
+      preLoaderRoute: typeof AuthenticatedResearchIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/research/$id': {
+      id: '/_authenticated/research/$id'
+      path: '/research/$id'
+      fullPath: '/research/$id'
+      preLoaderRoute: typeof AuthenticatedResearchIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
+  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedNotesRoute: typeof AuthenticatedNotesRoute
+  AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
+  AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedMeetingsIdRoute: typeof AuthenticatedMeetingsIdRoute
+  AuthenticatedResearchIdRoute: typeof AuthenticatedResearchIdRoute
   AuthenticatedMeetingsIndexRoute: typeof AuthenticatedMeetingsIndexRoute
+  AuthenticatedResearchIndexRoute: typeof AuthenticatedResearchIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
+  AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedNotesRoute: AuthenticatedNotesRoute,
+  AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
+  AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedMeetingsIdRoute: AuthenticatedMeetingsIdRoute,
+  AuthenticatedResearchIdRoute: AuthenticatedResearchIdRoute,
   AuthenticatedMeetingsIndexRoute: AuthenticatedMeetingsIndexRoute,
+  AuthenticatedResearchIndexRoute: AuthenticatedResearchIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
