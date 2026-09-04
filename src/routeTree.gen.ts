@@ -14,6 +14,8 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedNotesRouteImport } from './routes/_authenticated/notes'
+import { Route as AuthenticatedMeetingsIndexRouteImport } from './routes/_authenticated/meetings.index'
+import { Route as AuthenticatedMeetingsIdRouteImport } from './routes/_authenticated/meetings.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,18 +41,33 @@ const AuthenticatedNotesRoute = AuthenticatedNotesRouteImport.update({
   path: '/notes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMeetingsIndexRoute =
+  AuthenticatedMeetingsIndexRouteImport.update({
+    id: '/meetings/',
+    path: '/meetings/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMeetingsIdRoute = AuthenticatedMeetingsIdRouteImport.update({
+  id: '/meetings/$id',
+  path: '/meetings/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/notes': typeof AuthenticatedNotesRoute
+  '/meetings/$id': typeof AuthenticatedMeetingsIdRoute
+  '/meetings/': typeof AuthenticatedMeetingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/notes': typeof AuthenticatedNotesRoute
+  '/meetings/$id': typeof AuthenticatedMeetingsIdRoute
+  '/meetings': typeof AuthenticatedMeetingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +76,15 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/notes': typeof AuthenticatedNotesRoute
+  '/_authenticated/meetings/$id': typeof AuthenticatedMeetingsIdRoute
+  '/_authenticated/meetings/': typeof AuthenticatedMeetingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/notes'
+  fullPaths:
+    '/' | '/auth' | '/dashboard' | '/notes' | '/meetings/$id' | '/meetings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/notes'
+  to: '/' | '/auth' | '/dashboard' | '/notes' | '/meetings/$id' | '/meetings'
   id:
     | '__root__'
     | '/'
@@ -72,6 +92,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/notes'
+    | '/_authenticated/meetings/$id'
+    | '/_authenticated/meetings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,17 +139,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedNotesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/meetings/': {
+      id: '/_authenticated/meetings/'
+      path: '/meetings'
+      fullPath: '/meetings/'
+      preLoaderRoute: typeof AuthenticatedMeetingsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/meetings/$id': {
+      id: '/_authenticated/meetings/$id'
+      path: '/meetings/$id'
+      fullPath: '/meetings/$id'
+      preLoaderRoute: typeof AuthenticatedMeetingsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedNotesRoute: typeof AuthenticatedNotesRoute
+  AuthenticatedMeetingsIdRoute: typeof AuthenticatedMeetingsIdRoute
+  AuthenticatedMeetingsIndexRoute: typeof AuthenticatedMeetingsIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedNotesRoute: AuthenticatedNotesRoute,
+  AuthenticatedMeetingsIdRoute: AuthenticatedMeetingsIdRoute,
+  AuthenticatedMeetingsIndexRoute: AuthenticatedMeetingsIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
